@@ -13,7 +13,10 @@ def _parse_env_line(line: str) -> tuple[str, str] | None:
         return None
     k, v = line.split("=", 1)
     k = k.strip()
-    v = v.strip().strip("\"').strip()
+    v = v.strip()
+    # remove optional surrounding quotes
+    if (v.startswith('"') and v.endswith('"')) or (v.startswith("'") and v.endswith("'")):
+        v = v[1:-1]
     return k, v
 
 
@@ -37,4 +40,3 @@ def load_env(dotenv_path: str | Path | None = None) -> None:
     except Exception:
         # Fail closed: env loading is optional; ignore parse errors.
         pass
-

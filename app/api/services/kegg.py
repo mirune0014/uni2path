@@ -2,7 +2,17 @@ from __future__ import annotations
 
 from typing import Dict, Iterable, List, Tuple
 
-import backoff
+try:
+    import backoff  # type: ignore
+except Exception:  # pragma: no cover
+    class _BackoffCompat:
+        @staticmethod
+        def on_exception(*_args, **_kwargs):
+            def _deco(func):
+                return func
+            return _deco
+
+    backoff = _BackoffCompat()
 import httpx
 
 

@@ -4,7 +4,17 @@ import hashlib
 from dataclasses import dataclass
 from typing import Iterable, List, Tuple
 
-import backoff
+try:
+    import backoff  # type: ignore
+except Exception:  # pragma: no cover - fallback when backoff is unavailable
+    class _BackoffCompat:
+        @staticmethod
+        def on_exception(*_args, **_kwargs):
+            def _deco(func):
+                return func
+            return _deco
+
+    backoff = _BackoffCompat()
 import httpx
 
 
