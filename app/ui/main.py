@@ -1,5 +1,6 @@
 import json
 import os
+from typing import List
 import streamlit as st
 import httpx
 from app.utils.config import load_env
@@ -10,7 +11,7 @@ load_env()  # read .env in CWD if present
 API_BASE = os.getenv("UNI2PATH_API", "http://localhost:8000")
 
 
-def call_pathways(ids: list[str], normalize_isoforms: bool = True) -> dict:
+def call_pathways(ids: List[str], normalize_isoforms: bool = True) -> dict:
     with httpx.Client(timeout=30.0) as client:
         r = client.post(f"{API_BASE}/v1/pathways", json={"ids": ids, "normalize_isoforms": normalize_isoforms})
         r.raise_for_status()

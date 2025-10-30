@@ -8,7 +8,7 @@ from typing import Any, Optional
 
 
 class SqliteCache:
-    def __init__(self, db_path: str | Path | None = None) -> None:
+    def __init__(self, db_path: Optional[str] = None) -> None:
         root = Path(os.getenv("UNI2PATH_DATA", "."))
         path = Path(db_path) if db_path else root / "uni2path_cache.sqlite3"
         path.parent.mkdir(parents=True, exist_ok=True)

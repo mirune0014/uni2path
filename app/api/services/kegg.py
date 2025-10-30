@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, Iterable, List, Tuple, Optional
 
 try:
     import backoff  # type: ignore
@@ -51,7 +51,7 @@ def _link_gene_to_pathway(client: httpx.Client, gene_id: str) -> List[str]:
 
 
 @backoff.on_exception(backoff.expo, (httpx.HTTPError,), max_tries=3)
-def _get_pathway_name(client: httpx.Client, pathway_id: str) -> str | None:
+def _get_pathway_name(client: httpx.Client, pathway_id: str) -> Optional[str]:
     url = f"{KEGG_BASE}/list/{pathway_id}"
     r = client.get(url)
     r.raise_for_status()

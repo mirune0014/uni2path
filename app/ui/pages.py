@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import json
+from typing import List, Dict
 import streamlit as st
 
 
-def render_pathways_tab(pathways: list[dict]) -> None:
+def render_pathways_tab(pathways: List[Dict]) -> None:
     st.subheader("経路一覧")
     st.dataframe(pathways, use_container_width=True)
     col1, col2 = st.columns(2)
@@ -20,7 +21,7 @@ def render_pathways_tab(pathways: list[dict]) -> None:
         st.caption("KEGG/Reactome結果は外部リンク参照（再配布不可）")
 
 
-def render_output_tab(data: dict) -> None:
+def render_output_tab(data: Dict) -> None:
     st.subheader("出力/サマリ")
     valid = data.get("valid_ids", [])
     invalid = data.get("invalid_ids", [])

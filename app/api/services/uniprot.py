@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
-from typing import Iterable, List, Tuple
+from typing import Iterable, List, Tuple, Optional
 
 try:
     import backoff  # type: ignore
@@ -26,7 +26,7 @@ UNIPROT_BASE = "https://rest.uniprot.org"
 class NormalizedID:
     input_id: str
     accession: str
-    organism_id: int | None
+    organism_id: Optional[int]
 
 
 def _client(timeout: float = 20.0) -> httpx.Client:

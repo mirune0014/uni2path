@@ -1,7 +1,7 @@
 import json
 import logging
 import os
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 _LOGGER_NAME = "uni2path"
 
@@ -27,7 +27,7 @@ def _build_handler() -> logging.Handler:
     return handler
 
 
-def get_logger(name: str | None = None) -> logging.Logger:
+def get_logger(name: Optional[str] = None) -> logging.Logger:
     logger_name = name or _LOGGER_NAME
     logger = logging.getLogger(logger_name)
     if not logger.handlers:
