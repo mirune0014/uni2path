@@ -1,8 +1,16 @@
 import json
 import os
+import sys
+from pathlib import Path
 from typing import List
 import streamlit as st
 import httpx
+
+# Ensure project root is on sys.path when running via `streamlit run app/ui/main.py`
+_ROOT = Path(__file__).resolve().parents[1]  # repo root
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 from app.utils.config import load_env
 from app.ui.pages import render_pathways_tab, render_output_tab
 
