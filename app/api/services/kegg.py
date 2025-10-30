@@ -52,14 +52,17 @@ def _link_gene_to_pathway(client: httpx.Client, gene_id: str) -> List[str]:
 
 @backoff.on_exception(backoff.expo, (httpx.HTTPError,), max_tries=3)
 def _get_pathway_name(client: httpx.Client, pathway_id: str) -> Optional[str]:
-    url = f"{KEGG_BASE}/list/{pathway_id}"
+    # Use KEGG 'get' API and parse NAME line
+    url = f"{KEGG_BASE}/get/{pathway_id}"
     r = client.get(url)
     r.raise_for_status()
-    line = r.text.strip().splitlines()[0] if r.text.strip() else ""
-    if not line:
-        return None
-    parts = line.split("\t")
-    return parts[1] if len(parts) > 1 else None
+    text = r.text
+    for raw in text.splitlines():
+        if raw.startswith("NAME"):
+            # Expected format: 'NAME  <name>'
+            name = raw.split("NAME", 1)[1].strip()
+            return name if name else pathway_id
+    return None
 
 
 def kegg_pathways_for_uniprot(ids: Iterable[str]) -> List[Dict[str, str]]:
