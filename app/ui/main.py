@@ -2,6 +2,7 @@ import json
 import os
 import streamlit as st
 import httpx
+from app.ui.pages import render_pathways_tab, render_output_tab
 
 
 API_BASE = os.getenv("UNI2PATH_API", "http://localhost:8000")
@@ -39,14 +40,12 @@ if run:
             st.error(f"API呼び出しに失敗: {e}")
             st.stop()
 
-    st.subheader("結果")
-    st.write(f"有効ID: {len(data.get('valid_ids', []))} / 無効ID: {len(data.get('invalid_ids', []))}")
-    if data.get("invalid_ids"):
-        st.info("無効ID: " + ", ".join(data["invalid_ids"]))
-
-    pws = data.get("pathways", [])
-    if pws:
-        st.dataframe(pws, use_container_width=True)
-        st.download_button("pathways.json ダウンロード", data=json.dumps(pws, ensure_ascii=False, indent=2), file_name="pathways.json")
-    else:
-        st.warning("経路が見つかりませんでした。")
+    tabs = st.tabs(["経路", "出力"])
+    with tabs[0]:
+        pws = data.get("pathways", [])
+        if pws:
+            render_pathways_tab(pws)
+        else:
+            st.warning("経路が見つかりませんでした。")
+    with tabs[1]:
+        render_output_tab(data)
