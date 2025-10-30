@@ -13,6 +13,7 @@ except Exception:  # pragma: no cover
             return _deco
 
     backoff = _BackoffCompat()
+    backoff.expo = None  # type: ignore
 import httpx
 
 

@@ -15,6 +15,7 @@ except Exception:  # pragma: no cover - fallback when backoff is unavailable
             return _deco
 
     backoff = _BackoffCompat()
+    backoff.expo = None  # type: ignore
 import httpx
 
 
