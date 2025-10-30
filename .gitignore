@@ -4,6 +4,6 @@ __pycache__/
 .data/
 uni2path_cache.sqlite3
 
-.question.md
+.question.md/
 .gitignore
 .venv/
