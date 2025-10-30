@@ -7,7 +7,8 @@ import streamlit as st
 import httpx
 
 # Ensure project root is on sys.path when running via `streamlit run app/ui/main.py`
-_ROOT = Path(__file__).resolve().parents[1]  # repo root
+# Path(__file__).parents: [ui, app, repo_root]
+_ROOT = Path(__file__).resolve().parents[2]  # repo root
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
