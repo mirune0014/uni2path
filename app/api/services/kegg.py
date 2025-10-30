@@ -17,7 +17,7 @@ except Exception:  # pragma: no cover
 import httpx
 
 
-KEGG_BASE = "http://rest.kegg.jp"
+KEGG_BASE = "https://rest.kegg.jp"
 
 
 def _client(timeout: float = 20.0) -> httpx.Client:
