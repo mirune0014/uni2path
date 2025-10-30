@@ -2,9 +2,11 @@ import json
 import os
 import streamlit as st
 import httpx
+from app.utils.config import load_env
 from app.ui.pages import render_pathways_tab, render_output_tab
 
 
+load_env()  # read .env in CWD if present
 API_BASE = os.getenv("UNI2PATH_API", "http://localhost:8000")
 
 

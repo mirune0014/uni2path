@@ -12,7 +12,7 @@
 - [x] `app/ui/main.py`: 入力フォーム（100件まで、アイソフォーム正規化ON/OFF）
 - [x] `app/ui/pages.py`: 経路/出力タブの整備（表・DL・サマリ）
 - [ ] エラーハンドリング: 無効ID/非Humanの一覧表示と続行の文言洗練
-- [ ] 設定: `.env.example`整備（HTTP(S)_PROXY/NO_PROXY/CAパス）
+- [x] 設定: `.env.example`整備と`.env`ローダー組込み（HTTP(S)_PROXY/NO_PROXY/CAパス）
 
 ## M2: STRING/PPIと可視化（1週）
 - [ ] `app/api/services/string_db.py`: PPI取得（species=9606、required_scoreスライダー）

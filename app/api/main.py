@@ -6,6 +6,7 @@ from typing import List
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+from app.utils.config import load_env
 from app.api.services.uniprot import normalize_ids, NormalizedID
 from app.api.services.kegg import kegg_pathways_for_uniprot
 from app.api.services.reactome import reactome_pathways_for_uniprot
@@ -13,6 +14,7 @@ from app.core.cache import SqliteCache
 from app.utils.logger import get_logger
 
 
+load_env()  # load .env if present (does not override existing env vars)
 app = FastAPI(title="uni2path API", version="1.0.0")
 logger = get_logger()
 cache = SqliteCache()
