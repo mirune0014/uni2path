@@ -6,3 +6,4 @@ uni2path_cache.sqlite3
 
 .question.md
 .gitignore
+.venv/
